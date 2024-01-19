@@ -39,11 +39,15 @@ To access [MySQL binary logs](https://dev.mysql.com/doc/internals/en/binary-log-
 
 1. Replace the word `appserver` with `dbserver` in the connection string.
 
-1. Navigate to the `data` subdirectory to view the MySQL Slow Query logs.
+1. Navigate to the `data` subdirectory to view the MySQL binary logs.
 
 ### Are table prefixes supported?
 
 Table prefixes are not supported or recommended by Pantheon. While the server will not prevent their creation or use, managing and supporting tables with prefixes is the developer's responsibility.
+
+### Is the `ANSI_QUOTES` SQL mode supported?
+
+The `ANSI_QUOTES` SQL mode is not supported or recommended by Pantheon. While the server will not prevent adding this mode, it will break workflows related to the server's management and lifecycle
 
 ### Can I create a database in addition to the Pantheon database?
 
