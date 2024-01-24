@@ -13,6 +13,7 @@ import {
   Container,
   FlexContainer,
   Icon,
+  InputText,
 } from "@pantheon-systems/pds-toolkit-react"
 
 // Set container width for search and main content.
@@ -30,8 +31,10 @@ const ReleaseNotesListingByCategoryTemplate = ({ data, pageContext }) => {
   const [query, setQuery] = useState(emptyQuery)
 
   // Handle search input.
-  const handleInputChange = (event) => {
-    const query = event.target.value
+  const handleInputChange = (value) => {
+    const query = value
+
+    console.log(query)
 
     // Get all releasenotes.
     const releasenotes = data.allMdx.edges || []
@@ -61,13 +64,11 @@ const ReleaseNotesListingByCategoryTemplate = ({ data, pageContext }) => {
     var context = document.querySelector(".docs-release-note-results")
     var markInstance = new Mark(context)
 
-    setTimeout(function () {
-      markInstance.unmark({
-        done: function () {
-          markInstance.mark(query)
-        },
-      })
-    }, 100)
+    markInstance.unmark({
+      done: function () {
+        markInstance.mark(query)
+      },
+    })
   }
 
   // Debounce search input.
@@ -118,24 +119,15 @@ const ReleaseNotesListingByCategoryTemplate = ({ data, pageContext }) => {
               paddingBlockStart: "var(--pds-spacing-m)",
             }}
           >
-            <div
-              className="pds-input-field__input-wrapper"
-              style={{
-                flexGrow: "2",
-              }}
-            >
-              <div className="pds-input-field__decorators">
-                <Icon iconName="magnifyingGlass" />
-              </div>
-              <input
-                type="search"
-                aria-label={`Search ${categoryData["displayName"]} release notes`}
-                placeholder={`Search ${categoryData["displayName"]} release notes`}
-                id="release-note-filter-by-category"
-                className="pds-input-field__input"
-                onChange={debouncedHandleInputChange}
-              />
-            </div>
+            <InputText
+              type="search"
+              label={`Search ${categoryData["displayName"]} release notes`}
+              showLabel={false}
+              placeholder={`Search ${categoryData["displayName"]} release notes`}
+              hasClearButton
+              style={{ flexGrow: "1" }}
+              onChange={debouncedHandleInputChange}
+            />
             <ReleaseNoteCategorySelector />
           </FlexContainer>
           <div
